@@ -1,0 +1,27 @@
+{
+  "name": "xl-cli",
+  "version": "0.0.1",
+  "description": "Auto create project",
+  "main": "index.js",
+  "bin": {
+    "xl-cli": "./bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XmanLin/xl-cli.git"
+  },
+  "keywords": [
+    "cli",
+    "node",
+    "javascript"
+  ],
+  "author": "xmanlin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/XmanLin/xl-cli/issues"
+  },
+  "homepage": "https://github.com/XmanLin/xl-cli#readme",
+  "dependencies": {
+    "commander": "^7.0.0"
+  }
+}
