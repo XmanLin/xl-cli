@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 // 命令行
-const { program } = require('commander');
+const { Command } = require('commander');
+const program = new Command();
 const inquirer = require('inquirer');
 
 // 处理文件
@@ -20,28 +21,25 @@ let prompList = [
         default: templates[0]
     }
 ]
-
-// cli版本
-program.version(require('../package').version, '-v, --version', 'cli的最新版本');
-
-// options
-program
-    .option('-d, --debug', '调试一下')
-    .option('-l, --list <value>', '把字符串分割为数组', strToArr)
-
-
-const options = program.opts();
-
-if(options.debug) {
-    console.log("调试成功")
-} 
-if(options.list !== undefined) {
-    console.log(options.list)
-}
 // 字符串分割为数组的方法
 function strToArr(value, preValue){
     return value.split(',')
 }
+
+
+// options
+program
+    .version('0.0.1', '-v, --version', 'cli的最新版本')
+    .option('-d, --debug', '调试一下')
+    .option('-l, --list <value>', '把字符串分割为数组', strToArr)
+    .action((options, command) => {
+        if(options.debug) {
+            console.log("调试成功")
+        } 
+        if(options.list !== undefined) {
+            console.log(options.list)
+        }
+    });
 
 // 创建文件命令行
 program
@@ -49,7 +47,6 @@ program
     .description('创建一个文件')
     .action(async (filename) => {
         const res = await inquirer.prompt(prompList)
-        console.log(res);
         if(res.template === 'reactClass') {
             templates.forEach((item) => {
                 if(item.name === 'reactClass') {
@@ -89,7 +86,7 @@ program
                 }
             })
         } 
-    })
+    });
 // 创建文件夹命令行
 program
     .command('create-f <folder>')
@@ -101,6 +98,8 @@ program
             fs.mkdirSync(folder);
             console.log('文件夹创建成功')
         }
-    })
+    });
 
-program.parse(process.argv)
+program.parse(process.argv);
+
+
